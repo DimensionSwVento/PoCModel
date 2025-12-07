@@ -1,37 +1,34 @@
 import numpy as np
 import pandas as pd
 
-def wsm_ranking(X, pesos, tipos, criterios_final):
+def wsm(matrix, weights, types):
     """
-    Ejecuta el método Weighted Sum Model (WSM)
-    y retorna el ranking final.
+    Weighted Sum Model (WSM)
+
+    matrix: dataframe con criterios
+    weights: vector de pesos normalizados
+    types: lista con 'beneficio' o 'costo'
     """
 
-    # 1. Filtrar solo los criterios activos
-    X_sel = X[criterios_final]
+    M = matrix.values.astype(float)
 
-    # Filtrar pesos y normalizarlos
-    idx = [list(X.columns).index(c) for c in criterios_final]
-    pesos_sel = pesos[idx]
-    pesos_sel = pesos_sel / pesos_sel.sum()
+    # Normalización min-max por criterio
+    norm = np.zeros_like(M)
+    for j in range(M.shape[1]):
+        col = M[:, j]
+        minv, maxv = col.min(), col.max()
 
-    # Filtrar tipos
-    tipos_sel = {c: tipos[c] for c in criterios_final}
-
-    # 2. Normalización
-    X_norm = X_sel.copy()
-    for c in criterios_final:
-        col = X_sel[c]
-        if tipos_sel[c] == "beneficio":
-            X_norm[c] = (col - col.min()) / (col.max() - col.min())
+        # Evitar división por 0
+        if maxv - minv == 0:
+            norm[:, j] = 0
         else:
-            X_norm[c] = (col.max() - col) / (col.max() - col.min())
+            # Normalización dependiendo del tipo
+            if types[j] == "beneficio":
+                norm[:, j] = (col - minv) / (maxv - minv)
+            else:  # costo
+                norm[:, j] = (maxv - col) / (maxv - minv)
 
-    # 3. Cálculo de puntajes WSM
-    puntajes = X_norm.values @ pesos_sel
+    # WSM = sumatoria(w_i * x_ij)
+    scores = np.dot(norm, weights)
 
-    ranking = pd.DataFrame({
-        "Puntaje": puntajes
-    }, index=X_sel.index).sort_values("Puntaje", ascending=False)
-
-    return ranking, X_norm, pesos_sel
+    return scores, norm

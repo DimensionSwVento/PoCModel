@@ -2,7 +2,7 @@
 
 ## Uso
 
-Ejecutar main.py en la raíz y luego abrir el archivo de salida 'map_output.html' para visualizar el mapa de viabilidad
+Ejecutar main.py en la raíz y luego abrir los archivos de salida 'map_topsis.html' y 'map_wsm.html' para visualizar los mapas de viabilidad
 
 ## Librerías usadas
 - numpy

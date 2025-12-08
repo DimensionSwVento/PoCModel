@@ -27,8 +27,17 @@ pairwise = pd.read_csv("data/pairwise_matrix.csv", header=None).values
 weights = compute_weights(pairwise)
 CR = consistency_ratio(pairwise)
 
-print("Índice de Consistencia (CR):", CR)
-print("Pesos AHP:", weights)
+print("\nÍndice de Consistencia (CR):", CR)
+
+df_pesos = pd.DataFrame({
+    "Criterio": criterios,
+    "Tipo": tipos,
+    "Peso AHP": weights
+})
+
+print("\n=== Pesos AHP por Criterio ===")
+print(df_pesos.to_string(index=False))
+# =========================================================
 
 # 4. Ejecutar TOPSIS
 topsis_scores, V, ideal_pos, ideal_neg = topsis(matrix, weights, tipos)
@@ -48,4 +57,4 @@ m.save("map_topsis.html")
 m2 = create_map(alts, score_col="score_wsm")
 m2.save("map_wsm.html")
 
-print("Mapas generados: map_topsis.html | map_wsm.html")
+print("\nMapas generados: map_topsis.html | map_wsm.html")

@@ -1,5 +1,23 @@
 # PoCModel
 
+## Capturas de resultados
+
+<img width="354" height="280" alt="image" src="https://github.com/user-attachments/assets/7587e88b-9b46-4e85-99f0-3bb580632e02" />
+
+_*AHP outputs*_
+
+<img width="393" height="239" alt="image" src="https://github.com/user-attachments/assets/f351b931-31e7-4ee6-b38c-6a4e73a11d4d" />
+
+_*Ranking results by method*_
+
+<img width="1394" height="859" alt="image" src="https://github.com/user-attachments/assets/41e045dc-bfcf-4740-9543-d1cece267436" />
+
+_*Heatmap for TOPSIS ranking*_
+
+<img width="1445" height="849" alt="image" src="https://github.com/user-attachments/assets/3dad3ed5-6ff2-4eb0-b7af-3fcb394ab29b" />
+
+_*Heatmap for WSM ranking*_
+
 ## Uso
 
 Ejecutar main.py en la raíz y luego abrir los archivos de salida 'map_topsis.html' y 'map_wsm.html' para visualizar los mapas de viabilidad
